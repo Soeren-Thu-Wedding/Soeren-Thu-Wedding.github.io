@@ -30,6 +30,7 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
     '*.herokuapp.com',
+    '.herokuapp.com',
     config('SERVER', default='127.0.0.1')
 ]
 
