@@ -29,8 +29,8 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
-    '*.herokuapp.com',
     '.herokuapp.com',
+    'soeren-and-thus-wedding.herokuapp.com',
     config('SERVER', default='127.0.0.1')
 ]
 
@@ -128,7 +128,9 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'bigday', 'static'),)
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'bigday', 'static'),
+)
 
 # This is used in a few places where the names of the couple are used
 BRIDE_AND_GROOM = 'Søren and Thu'
