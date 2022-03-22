@@ -133,6 +133,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'bigday', 'static'),
 )
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 # This is used in a few places where the names of the couple are used
 BRIDE_AND_GROOM = 'Søren and Thu'
 # base address for all emails
