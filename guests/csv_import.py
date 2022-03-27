@@ -12,7 +12,7 @@ def import_guests(path):
             if first_row:
                 first_row = False
                 continue
-            party_name, first_name, last_name, party_type, is_child, category, is_invited, email = row[:8]
+            party_name, first_name, last_name, party_type, language, is_child, category, is_invited, email = row[:9]
             if not party_name:
                 print ('skipping row {}'.format(row))
                 continue
@@ -20,6 +20,7 @@ def import_guests(path):
             party.type = party_type
             party.category = category
             party.is_invited = _is_true(is_invited)
+            party.language = language
             if not party.invitation_id:
                 party.invitation_id = uuid.uuid4().hex
             party.save()
@@ -35,7 +36,7 @@ def import_guests(path):
 
 def export_guests():
     headers = [
-        'party_name', 'first_name', 'last_name', 'party_type',
+        'party_name', 'first_name', 'last_name', 'party_type', 'language',
         'is_child', 'category', 'is_invited', 'is_attending',
         'rehearsal_dinner', 'meal', 'email', 'comments'
     ]
@@ -50,6 +51,7 @@ def export_guests():
                     guest.first_name,
                     guest.last_name,
                     party.type,
+                    party.language,
                     guest.is_child,
                     party.category,
                     party.is_invited,

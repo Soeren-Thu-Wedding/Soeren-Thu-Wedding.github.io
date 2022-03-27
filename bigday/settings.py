@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 import os
 from decouple import config
+from datetime import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -147,6 +148,7 @@ DEFAULT_WEDDING_REPLY_EMAIL = DEFAULT_WEDDING_EMAIL # change to 'address@domain.
 WEDDING_LOCATION = 'Phu Yen, Vietnam'
 # the date of your wedding
 WEDDING_DATE = 'October 19th, 2022'
+WEDDING_DATE_DATETIME = datetime(2022, 10, 19, 9)
 
 # when sending test emails it will use this address
 DEFAULT_WEDDING_TEST_EMAIL = DEFAULT_WEDDING_FROM_EMAIL

@@ -9,6 +9,20 @@ ALLOWED_TYPES = [
     ('fun', 'fun'),
 ]
 
+# TODO: Change meals
+MEALS = [
+    ('beef', 'cow'),
+    ('fish', 'fish'),
+    ('hen', 'hen'),
+    ('vegetarian', 'vegetable'),
+]
+
+LANGUAGES = [
+    ('en', 'English'),
+    ('da', 'Danish'),
+    ('vn', 'Vietnamese')
+]
+
 
 def _random_uuid():
     return uuid.uuid4().hex
@@ -19,6 +33,7 @@ class Party(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.TextField()
     type = models.CharField(max_length=10, choices=ALLOWED_TYPES)
+    language = models.CharField(max_length=2, choices=LANGUAGES, default='en')
     category = models.CharField(max_length=20, null=True, blank=True)
     save_the_date_sent = models.DateTimeField(null=True, blank=True, default=None)
     save_the_date_opened = models.DateTimeField(null=True, blank=True, default=None)
@@ -50,19 +65,10 @@ class Party(models.Model):
         return list(filter(None, self.guest_set.values_list('email', flat=True)))
 
 
-# TODO: Change meals
-MEALS = [
-    ('beef', 'cow'),
-    ('fish', 'fish'),
-    ('hen', 'hen'),
-    ('vegetarian', 'vegetable'),
-]
-
-
 class Guest(models.Model):
     """A single guest"""
     id = models.BigAutoField(primary_key=True)
-    party = models.ForeignKey('Party', on_delete=models.CASCADE)
+    party = models.ForeignKey(Party, on_delete=models.CASCADE)
     first_name = models.TextField()
     last_name = models.TextField(null=True, blank=True)
     email = models.TextField(null=True, blank=True)
@@ -73,6 +79,10 @@ class Guest(models.Model):
     @property
     def name(self):
         return f'{self.first_name} {self.last_name}'
+
+    @property
+    def language(self):
+        return self.party.language
 
     @property
     def unique_id(self):

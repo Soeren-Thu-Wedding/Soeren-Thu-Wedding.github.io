@@ -1,13 +1,11 @@
-{% extends "base.html" %} {% load static %} {% block page_head %}
+{% extends "base.html" %}
+{% load static %}
+{% block page_head %}
 <!-- Custom CSS -->
 <link href="{% static 'bigday/css/creative.css' %}" rel="stylesheet" />
-<link
-  href="{% static 'countdown/css/jquery.countdown.css' %}"
-  rel="stylesheet"
-  type="text/css"
-/>
 {% endblock %}
 {% block page_content %}
+{{ wedding_date_datetime|json_script:"datetime-data" }}
 <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -37,7 +35,7 @@
           <a class="page-scroll" href="#event">Event</a>
         </li>
         <li>
-          <a class="page-scroll" href="#niagara">Niagara-on-the-Lake</a>
+          <a class="page-scroll" href="#phu-yen">Phu Yen</a>
         </li>
         <li>
           <a class="page-scroll" href="#other-stuff">Everything Else</a>
@@ -55,14 +53,16 @@
 <header id="main-header">
   <div class="header-content">
     <div class="header-content-inner">
-      <!-- <h1>We did it!!</h1> -->
-      <div id="ourCountdown" class="is-countdown"></div>
-      {% comment %}
+      <h1 class="shadowy">Søren and Thu's Wedding</h1>
       <hr />
-      <h2>It's wedding week!</h2>
+      <p class="shadowy">More than you ever wanted to know about Søren, Thu, and the event.</p>
+      {% if is_wedding_week %}
+        <h2>It's wedding week!</h2>
+      {% endif %}
+      {% comment %}
       <a href="#welcome" class="btn btn-info btn-xl page-scroll">Welcome</a>
       <a href="#event" class="btn btn-primary btn-xl page-scroll">Tuesday</a>
-      <a href="#saturday-event" class="btn btn-success btn-xl page-scroll">Wednesday</a>
+      <a href="#wednesday-event" class="btn btn-success btn-xl page-scroll">Wednesday</a>
       {% endcomment %}
     </div>
   </div>
@@ -73,22 +73,42 @@
       <div class="col-lg-8 col-lg-offset-2 text-center">
         <h2 class="section-heading">Welcome!</h2>
         <hr />
+        {% if is_wedding_week %}
         <p>Hello friends and family! It's the week of the wedding!</p>
         <p>
           If you're looking for information about the event, look no further!
           Please see below for all the details regarding
-          <a href="#event" class="page-scroll">Friday night's welcome party</a>
+          <a href="#event" class="page-scroll">Tuesday night's welcome party</a>
           and
-          <a href="#saturday-event" class="page-scroll">Saturday's event</a>.
+          <a href="#wednesday-event" class="page-scroll">Wednesday's event</a>.
         </p>
         <p>
-          To get added to the wedding whatsapp group first create an account and
+          To get added to the wedding WhatsApp group, first create an account and
           then send an email to
-          <a href="mailto:{{ support_email }}">{{ support_email }}</a>. Also,
-          the current front-runner for the wedding hashtag (if you're into that
-          sort of thing) is #getlukky.
+          <a href="mailto:{{ support_email }}">{{ support_email }}</a>.
         </p>
         <p>Looking forward to seeing everyone soon!</p>
+        {% else %}
+        <p>Hello friends and family! Welcome to our wedding website!</p>
+        <p>
+          This is the go-to stop for all information about the wedding.
+          We'll continue to update this site over time.
+        </p>
+        <p>
+          If you're looking for information about the event, look no further!
+          Please see below for all the details regarding
+          <a href="#event" class="page-scroll">Tuesday night's welcome party</a>
+          and
+          <a href="#wednesday-event" class="page-scroll">Wednesday's event</a>.
+        </p>
+        <!-- <p>
+          To get added to the wedding WhatsApp group, first create an account and
+          then send an email to
+          <a href="mailto:{{ support_email }}">{{ support_email }}</a>.
+        </p> -->
+        <p>We can't wait to celebrate the day with everyone!</p>
+        {% endif %}
+        <div id="our-countdown" class="simply-countdown-losange"></div>
         <p class="pull-right">- {{ couple_name }}</p>
       </div>
     </div>
@@ -97,7 +117,7 @@
 <section class="no-padding" id="navigation">
   <div class="container-fluid">
     <div class="row no-gutter">
-      <div class="col-lg-4 col-sm-6">
+      <div class="col-lg-4 col-sm-4">
         <a href="#event" class="portfolio-box page-scroll">
           <img
             src="{% static 'bigday/images/ravine-nav.jpg' %}"
@@ -111,24 +131,24 @@
           </div>
         </a>
       </div>
-      <div class="col-lg-4 col-sm-6">
-        <a href="#niagara" class="portfolio-box page-scroll">
+      <div class="col-lg-4 col-sm-4">
+        <a href="#phu-yen" class="portfolio-box page-scroll">
           <img
-            src="{% static 'bigday/images/prince-of-wales-hotel-nav.jpg' %}"
+            src="{% static 'bigday/images/phu-yen.jpg' %}"
             class="img-responsive"
             alt=""
           />
           <div class="portfolio-box-caption">
             <div class="portfolio-box-caption-content">
-              <div class="project-name">Niagara-on-the-Lake</div>
+              <div class="project-name">Phu Yen</div>
             </div>
           </div>
         </a>
       </div>
-      <div class="col-lg-4 col-sm-6">
+      <div class="col-lg-4 col-sm-4">
         <a href="#story" class="portfolio-box page-scroll">
           <img
-            src="{% static 'bigday/images/twelve-apostles-nav.jpg' %}"
+            src="{% static 'bigday/images/bali.jpg' %}"
             class="img-responsive"
             alt=""
           />
@@ -143,7 +163,7 @@
   </div>
 </section>
 {% include 'partials/event.html' %}
-<section id="niagara">{% include 'partials/niagara.html' %}</section>
+<section id="phu-yen">{% include 'partials/phu-yen.html' %}</section>
 {% comment %}
 {% include 'partials/wedding-party.html' %}
 {% endcomment %}
@@ -155,7 +175,9 @@
   {% include 'partials/story.html' %}
 </section>
 {% include 'partials/proposal.html' %}
+{% comment %}
 {% include 'partials/save-the-dates.html' %}
+{% endcomment %}
 <section id="contact" class="bg-dark">
   <div class="container">
     <div class="row">
@@ -171,7 +193,9 @@
     </div>
   </div>
 </section>
-{% endblock %} {% endblock %} {% block page_js %}
+{% endblock %}
+{% endblock %}
+{% block page_js %}
 <!-- Plugin JavaScript -->
 <!-- Easing is for the vertical scroll animations -->
 <script src="{% static 'creative/js/jquery.easing.min.js' %}"></script>
@@ -179,4 +203,16 @@
 <script src="{% static 'creative/js/jquery.fittext.js' %}"></script>
 <!-- Custom Theme JavaScript -->
 <script src="{% static 'creative/js/creative.js' %}"></script>
+<script src="{% static 'simplyCountdown/simplyCountdown.min.js' %}"></script>
+<script>
+const datetime = JSON.parse(document.getElementById('datetime-data').textContent);
+simplyCountdown('#our-countdown', {
+  year: datetime.year,
+  month: datetime.month,
+  day: datetime.day,
+  hours: 0, // Default is 0 [0-23] integer
+  minutes: 0, // Default is 0 [0-59] integer
+  enableUtc: true
+});
+</script>
 {% endblock %}
