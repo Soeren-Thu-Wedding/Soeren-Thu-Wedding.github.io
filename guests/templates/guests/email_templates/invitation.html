@@ -10,7 +10,13 @@
                     <td>
                         <a href="{% if email_mode %}{{ site_url }}{% endif %}{% url 'invitation' invitation_id %}" target="_blank"
                            style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; background-color: #337ab7; border-top: 12px solid #337ab7; border-bottom: 12px solid #337ab7; border-right: 18px solid #337ab7; border-left: 18px solid #337ab7; display: inline-block;">
-                            View Invitation
+                           {% if language == 'da' %}
+                           Vis invitation
+                           {% elif language == 'vn' %}
+                           TODO
+                           {% else %}
+                           View Invitation
+                           {% endif %}
                         </a>
                     </td>
                 </tr>
@@ -34,14 +40,27 @@
         <tr>
             <td style="padding: 20px 0 0 0; font-size: 16px; line-height: 20px; font-family: Helvetica, Arial, sans-serif; color: {{ font_color }};"
                 class="padding-copy" align="center">
-                {{ couple }}'s Wedding<br>
+                {% if language == 'da' %}
+                Søren og Thus bryllup
+                {% elif language == 'vn' %}
+                TODO
+                {% else %}
+                Søren and Thu's Wedding
+                {% endif %}
+                <br>
             </td>
         </tr>
         </tbody>
     </table>
 {% endblock %}
 {% block footer_content %}
+    {% if language == 'da' %}
+    Venligst <a href="{% if email_mode %}{{ site_url }}{% endif %}{% url 'invitation' invitation_id %}">se invitationen online</a> for at svare.<br>
+    {% elif language == 'vn' %}
+    TODO
+    {% else %}
     Please <a href="{% if email_mode %}{{ site_url }}{% endif %}{% url 'invitation' invitation_id %}">view the invitation online</a> to rsvp.<br>
+    {% endif %}
     {% if email_mode %}
         <p><a href="{{ site_url }}">{{ site_url }}</a></p>
     {% endif %}

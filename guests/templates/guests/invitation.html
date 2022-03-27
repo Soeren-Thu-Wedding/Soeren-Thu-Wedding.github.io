@@ -1,10 +1,13 @@
-{% extends 'base.html' %} {% load static %} {% block page_head %}
+{% extends 'base.html' %}
+{% load static %}
+{% block page_head %}
 <link
   href="{% static 'bigday/css/invitation.css' %}"
   rel="stylesheet"
   xmlns="http://www.w3.org/1999/html"
 />
-{% endblock %} {% block page_content %}
+{% endblock %}
+{% block page_content %}
 <div class="container" id="invitation-body">
   <section class="video-container">
     <div class="responsive-video">
@@ -35,7 +38,8 @@
     >
       <h2 id="rsvp-header" class="text-center">RSVP</h2>
       <div class="clearfix"></div>
-      {% csrf_token %} {% for guest in party.ordered_guests.all %}
+      {% csrf_token %}
+      {% for guest in party.ordered_guests.all %}
       <div class="form-group" data-is-child="{{ guest.is_child }}">
         {% with 'attending-'|add:guest.unique_id as attending_label %}
         <label for="{{ attending_label }}" class="col-sm-3 control-label"
@@ -53,28 +57,40 @@
           will attend
         </label>
         <label class="radio-inline">
-          <input class="attending-radio" type="radio" name="{{ attending_label
-          }}" value="no" {% if not guest.is_attending %} checked="checked" {%
-          endif %} required> will not attend
+          <input
+            class="attending-radio"
+            type="radio" 
+            name="{{ attending_label }}"
+            value="no"
+            {% if not guest.is_attending %} checked="checked" {% endif %}
+            required
+          > will not attend
         </label>
         {% endwith %}
       </div>
       {% if not guest.is_child %}
       <div class="form-group">
         {% with 'meal-'|add:guest.unique_id as meal_label %}
-        <label for="{{ meal_label }}" class="col-sm-3 control-label"
-          >... and will eat</label
-        >
+        <label for="{{ meal_label }}" class="col-sm-3 control-label">
+          ... and will eat
+        </label>
         {% for meal_id, meal_name in meals %}
         <label class="radio-inline">
-          <input type="radio" name="{{ meal_label }}" id="{{ meal_label }}-yes"
-          value="{{ meal_id }}" {% if guest.meal == meal_id
-          %}checked="checked"{% endif %} {% if guest.is_attending == False
-          %}disabled{% endif %} required> {{ meal_name }}
+          <input
+            type="radio"
+            name="{{ meal_label }}"
+            id="{{ meal_label }}-yes"
+            value="{{ meal_id }}"
+            {% if guest.meal == meal_id %} checked="checked" {% endif %}
+            {% if guest.is_attending == False %} disabled {% endif %}
+            required
+          > {{ meal_name }}
         </label>
-        {% endfor %} {% endwith %}
+        {% endfor %}
+        {% endwith %}
       </div>
-      {% endif %} {% endfor %}
+      {% endif %}
+      {% endfor %}
       <div class="form-group col-sm-12">
         <input
           type="text"
@@ -95,7 +111,8 @@
     </form>
   </section>
 </div>
-{% endblock %} {% block page_js %}
+{% endblock %}
+{% block page_js %}
 <script src="{% static 'validator.js' %}"></script>
 <script>
   $(function () {

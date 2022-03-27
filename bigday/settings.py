@@ -10,12 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 import os
-from decouple import config
 from datetime import datetime
+
+from decouple import config
+import pytz
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
@@ -78,18 +80,39 @@ TEMPLATES = [
     },
 ]
 
+DEFAULT_CACHE = 'django.core.cache.backends.locmem.LocMemCache'
+CACHES = {
+    'default': {
+        'BACKEND': config('CACHE_BACKEND', default=DEFAULT_CACHE),
+        'LOCATION': 'unique-snowflake'
+    }
+}
+
 WSGI_APPLICATION = 'bigday.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+RUN_LOCAL_DB = config('RUN_LOCAL_DB', default=False, cast=bool)
+if RUN_LOCAL_DB:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': config('DB_NAME', default=None),
+            'USER': config('DB_USER', default=None),
+            'PASSWORD': config('DB_PASSWORD', default=None),
+            'HOST': config('DB_HOST', default=None),
+            'PORT': 5432
+        }
+    }
 
 
 # Password validation
@@ -148,7 +171,9 @@ DEFAULT_WEDDING_REPLY_EMAIL = DEFAULT_WEDDING_EMAIL # change to 'address@domain.
 WEDDING_LOCATION = 'Phu Yen, Vietnam'
 # the date of your wedding
 WEDDING_DATE = 'October 19th, 2022'
-WEDDING_DATE_DATETIME = datetime(2022, 10, 19, 9)
+
+WEDDING_DATE_DATETIME = datetime(2022, 10, 19, 9, tzinfo=pytz.timezone('Asia/Ho_Chi_Minh'))
+WEDDING_DATE_DATETIME_UTC = WEDDING_DATE_DATETIME.astimezone(pytz.utc)
 
 # when sending test emails it will use this address
 DEFAULT_WEDDING_TEST_EMAIL = DEFAULT_WEDDING_FROM_EMAIL
@@ -168,3 +193,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #     from .localsettings import *
 # except ImportError:
 #     pass
+
+django_heroku.settings(locals())

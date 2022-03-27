@@ -10,3 +10,4 @@ data/
 guests/static/save-the-date/images/archive/
 .DS_Store
 .env
+invitations/

@@ -5,11 +5,13 @@ from guests.save_the_date import SAVE_THE_DATE_CONTEXT_MAP
 
 
 def home(request):
-    dt = settings.WEDDING_DATE_DATETIME
+    dt = settings.WEDDING_DATE_DATETIME_UTC
     wedding_date_datetime = {
         'year': dt.year,
         'month': dt.month,
         'day': dt.day,
+        'hour': dt.hour,
+        'minute': dt.minute
     }
     is_wedding_week = date.today().isocalendar()[1] == dt.isocalendar()[1]
     return render(request, 'home.html', context={

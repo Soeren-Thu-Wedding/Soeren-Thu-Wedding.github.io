@@ -1,6 +1,7 @@
 from collections import namedtuple
 import random
 from datetime import datetime
+
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
@@ -8,6 +9,7 @@ from django.db.models import Count, Q
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.views.generic import ListView
+
 from guests import csv_import
 from guests.invitation import get_invitation_context, INVITATION_TEMPLATE, guess_party_by_invite_id_or_404, \
     send_invitation_email
@@ -80,6 +82,7 @@ def invitation(request, invite_id):
         return HttpResponseRedirect(reverse('rsvp-confirm', args=[invite_id]))
     return render(request, template_name='guests/invitation.html', context={
         'party': party,
+        'language': party.language,
         'meals': MEALS,
     })
 
@@ -109,6 +112,7 @@ def rsvp_confirm(request, invite_id=None):
     party = guess_party_by_invite_id_or_404(invite_id)
     return render(request, template_name='guests/rsvp_confirmation.html', context={
         'party': party,
+        'language': party.language,
         'support_email': settings.DEFAULT_WEDDING_REPLY_EMAIL,
     })
 

@@ -8,6 +8,19 @@ Live site examples:
 
 There is also [a longer writeup on this project here](https://www.placecard.me/blog/django-wedding-website/).
 
+## Commands
+
+* How to get started?
+    * `python manage.py migrate`
+    * `python manage.py createsuperuser` 
+    * `python manage.py runserver`
+* Log in to dashboard or admin interface
+    * http://localhost:8000/dashboard/
+    * http://localhost:8000/admin/
+* How are Save the Dates sent? `python manage.py send_save_the_dates --send --mark-sent`
+* How are Invitations sent? `python manage.py send_invitations --send --mark-sent`
+* How are guest lists imported? `python manage.py import_guests guests.csv`
+
 ## What's included?
 
 This includes everything we did for our own wedding:

@@ -1,11 +1,28 @@
-{% extends 'base.html' %} {% load static %} {% block page_head %}
+{% extends 'base.html' %}
+{% load static %}
+{% block page_head %}
 <link
   href="{% static 'bigday/css/rsvp-confirmation.css' %}"
   rel="stylesheet"
   xmlns="http://www.w3.org/1999/html"
 />
-{% endblock %} {% block page_content %}
+{% endblock %}
+{% block page_content %}
 <div class="layer"></div>
+{% if language == 'da' %}
+<div class="container" id="main">
+  <h2>Hej {{ party.name }}! Tak for {{ party.num_guests|pluralize:"dit,jeres" }} svar!</h2>
+  {% if party.any_guests_attending %}
+  <p>Vi glæder os til at feste med {{ party.num_guests|pluralize:"dig,jer" }} i Vietnam!</p>
+  {% else %}
+  <p>Vi er kede af at høre, at {{ party.num_guests|pluralize:"du,I" }} ikke kan deltage.</p>
+  <p>Men så ses vi en anden gang!</p>
+  {% endif %}
+  <p>- Søren og Thu</p>
+</div>
+{% elif language == 'vn' %}
+TODO
+{% else %}
 <div class="container" id="main">
   <h2>Hi {{ party.name }}! Thanks for your response!</h2>
   {% if party.any_guests_attending %}
@@ -20,4 +37,5 @@
   {% endif %}
   <p>- Søren and Thu</p>
 </div>
+{% endif %}
 {% endblock %}

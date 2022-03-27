@@ -57,7 +57,15 @@ class Party(models.Model):
         return self.guest_set.order_by('is_child', 'pk')
 
     @property
-    def any_guests_attending(self):
+    def num_guests(self) -> int:
+        return self.guest_set.count()
+
+    @property
+    def is_singular(self) -> bool:
+        return self.num_guests == 1
+
+    @property
+    def any_guests_attending(self) -> bool:
         return any(self.guest_set.values_list('is_attending', flat=True))
 
     @property
