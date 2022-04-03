@@ -162,9 +162,10 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # This is used in a few places where the names of the couple are used
 BRIDE_AND_GROOM = 'Søren and Thu'
 # base address for all emails
-DEFAULT_WEDDING_EMAIL = 'happilyeverafter@example.com'
+DEFAULT_WEDDING_EMAIL = 'hello@soeren-thu-wedding.com'
 # the address your emails (save the dates/invites/etc.) will come from
-DEFAULT_WEDDING_FROM_EMAIL = BRIDE_AND_GROOM + ' <' + DEFAULT_WEDDING_EMAIL + '>' # change to 'address@domain.tld'
+DEFAULT_WEDDING_FROM_EMAIL = f'{BRIDE_AND_GROOM} <{DEFAULT_WEDDING_EMAIL}>'
+
 # the default reply-to of your emails
 DEFAULT_WEDDING_REPLY_EMAIL = DEFAULT_WEDDING_EMAIL # change to 'address@domain.tld'
 # the location of your wedding
@@ -172,26 +173,18 @@ WEDDING_LOCATION = 'Phu Yen, Vietnam'
 # the date of your wedding
 WEDDING_DATE = 'October 19th, 2022'
 
-WEDDING_DATE_DATETIME = datetime(2022, 10, 19, 9, tzinfo=pytz.timezone('Asia/Ho_Chi_Minh'))
+VN_TIMEZONE = pytz.timezone('Asia/Ho_Chi_Minh')
+WEDDING_DATE_DATETIME = datetime(2022, 10, 19, 9, tzinfo=VN_TIMEZONE)
 WEDDING_DATE_DATETIME_UTC = WEDDING_DATE_DATETIME.astimezone(pytz.utc)
 
-# when sending test emails it will use this address
+# When sending test emails it will use this address
 DEFAULT_WEDDING_TEST_EMAIL = DEFAULT_WEDDING_FROM_EMAIL
 
-
 # This is used in links in save the date / invitations
-WEDDING_WEBSITE_URL = 'https://thehappycouple.com'
-WEDDING_CC_LIST = [
-    'shmulvad@gmail.com',
-    'tranthituyetthu95@gmail.com'
-]  # put email addresses here if you want to cc someone on all your invitations
+WEDDING_WEBSITE_URL = 'https://soeren-thu-wedding.com'
+WEDDING_CC_LIST = ['shmulvad@gmail.com', 'tranthituyetthu95@gmail.com']
 
-# change to a real email backend in production
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# try:
-#     from .localsettings import *
-# except ImportError:
-#     pass
 
 django_heroku.settings(locals())
