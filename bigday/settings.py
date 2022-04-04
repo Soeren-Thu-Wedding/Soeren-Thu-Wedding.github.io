@@ -162,7 +162,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # This is used in a few places where the names of the couple are used
 BRIDE_AND_GROOM = 'Søren and Thu'
 # base address for all emails
-DEFAULT_WEDDING_EMAIL = 'hello@soeren-thu-wedding.com'
+DEFAULT_WEDDING_EMAIL = 'shmulvad@gmail.com'
 # the address your emails (save the dates/invites/etc.) will come from
 DEFAULT_WEDDING_FROM_EMAIL = f'{BRIDE_AND_GROOM} <{DEFAULT_WEDDING_EMAIL}>'
 
