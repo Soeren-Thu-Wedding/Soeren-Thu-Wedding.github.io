@@ -90,6 +90,10 @@ CACHES = {
 
 WSGI_APPLICATION = 'bigday.wsgi.application'
 
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT = True
+
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
