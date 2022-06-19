@@ -132,6 +132,12 @@ aside {
   background-color: transparent;
 } */
 
+@media (max-width: 768px) {
+  .only-desktop {
+    display: none;
+  }
+}
+
 @media (min-width: 768px) {
   .navbar-default {
     border-color: rgba(28, 56, 81, 0.3);
