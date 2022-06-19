@@ -7,7 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <!-- Modified from https://github.com/IronSummitMedia/startbootstrap-creative -->
+    <meta property="og:image" content="{% static 'bigday/images/splashscreen.jpg' %}">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="2048">
+    <meta property="og:image:height" content="1176">
+    <meta property="og:title" content="Søren and Thu's big day" />
+    <meta property="og:description" content="More than you ever wanted to know about Søren, Thu, and the event." />
     <title>{{ couple_name }}'s big day</title>
 
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
@@ -24,12 +29,13 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    {% include "partials/google-analytics.html" %}
+    {% comment %} {% include "partials/google-analytics.html" %} {% endcomment %}
     {% block page_head %}
     {% endblock %}
 </head>
 <body id="page-top">
-{% block page_content %}{% endblock %}
+{% block page_content %}
+{% endblock %}
 {% include "partials/footer.html"  %}
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
