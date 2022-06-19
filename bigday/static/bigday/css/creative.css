@@ -204,6 +204,7 @@ header {
 
 #main-header {
   background-image: url("../images/splashscreen.jpg");
+  height: 100%;
 }
 
 header .header-content {
