@@ -83,8 +83,8 @@ aside {
 }
 
 .shadowy {
-    color: black !important;
-    text-shadow: white 0px 0px 10px;
+    /* color: black !important; */
+    text-shadow: black 0px 0px 10px;
 }
 
 .navbar-default {
@@ -124,18 +124,18 @@ aside {
 .navbar-default .nav > li.active > a,
 .navbar-default .nav > li.active > a:focus {
   color: #f05f40 !important;
-  background-color: transparent;
+  /* background-color: transparent; */
 }
 
-.navbar-default .nav > li.active > a:hover,
+/* .navbar-default .nav > li.active > a:hover,
 .navbar-default .nav > li.active > a:focus:hover {
   background-color: transparent;
-}
+} */
 
 @media (min-width: 768px) {
   .navbar-default {
     border-color: rgba(28, 56, 81, 0.3);
-    background-color: transparent;
+    /* background-color: transparent; */
   }
 
   .navbar-default .navbar-header .navbar-brand {
@@ -228,6 +228,12 @@ header .header-content .header-content-inner p {
 
 #second-header {
   background-image: url("../images/engagement.jpg");
+}
+
+@media (max-width: 493px) {
+  #our-countdown {
+    width: 250px;
+  }
 }
 
 @media (min-width: 768px) {
