@@ -97,26 +97,7 @@ if not DEBUG:
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-
-RUN_LOCAL_DB = config('RUN_LOCAL_DB', default=False, cast=bool)
-if RUN_LOCAL_DB:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
-    }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': config('DB_NAME', default=None),
-            'USER': config('DB_USER', default=None),
-            'PASSWORD': config('DB_PASSWORD', default=None),
-            'HOST': config('DB_HOST', default=None),
-            'PORT': 5432
-        }
-    }
+DATABASES = {}
 
 
 # Password validation

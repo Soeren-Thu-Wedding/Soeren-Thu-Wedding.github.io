@@ -1,7 +1,7 @@
 from datetime import date
 from django.conf import settings
 from django.shortcuts import render
-from guests.save_the_date import SAVE_THE_DATE_CONTEXT_MAP
+# from guests.save_the_date import SAVE_THE_DATE_CONTEXT_MAP
 
 
 def home(request):
@@ -15,7 +15,7 @@ def home(request):
     }
     is_wedding_week = date.today().isocalendar()[1] == dt.isocalendar()[1]
     return render(request, 'home.html', context={
-        'save_the_dates': SAVE_THE_DATE_CONTEXT_MAP,
+        # 'save_the_dates': SAVE_THE_DATE_CONTEXT_MAP,
         'support_email': settings.DEFAULT_WEDDING_REPLY_EMAIL,
         'website_url': settings.WEDDING_WEBSITE_URL,
         'couple_name': settings.BRIDE_AND_GROOM,
