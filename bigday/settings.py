@@ -14,7 +14,6 @@ from datetime import datetime
 
 from decouple import config
 import pytz
-import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -28,6 +27,7 @@ SECRET_KEY = config('DJANGO_SECRET_KEY', default='S#perS3crEt_1122')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
+IS_HEROKU = config('IS_HEROKU', default=False, cast=bool)
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
@@ -172,4 +172,6 @@ WEDDING_CC_LIST = ['shmulvad@gmail.com', 'tranthituyetthu95@gmail.com']
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
-django_heroku.settings(locals())
+if IS_HEROKU:
+    import django_heroku
+    django_heroku.settings(locals())
