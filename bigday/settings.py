@@ -34,6 +34,8 @@ ALLOWED_HOSTS = [
     'localhost',
     '.herokuapp.com',
     'soeren-and-thus-wedding.herokuapp.com',
+    'soeren-thu-wedding.com',
+    'www.soeren-thu-wedding.com',
     config('SERVER', default='127.0.0.1')
 ]
 
@@ -84,7 +86,7 @@ DEFAULT_CACHE = 'django.core.cache.backends.locmem.LocMemCache'
 CACHES = {
     'default': {
         'BACKEND': config('CACHE_BACKEND', default=DEFAULT_CACHE),
-        'LOCATION': 'unique-snowflake'
+        'LOCATION': 'unique-snowflake',
     }
 }
 
