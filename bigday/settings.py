@@ -158,7 +158,7 @@ WEDDING_LOCATION = 'Phu Yen, Vietnam'
 WEDDING_DATE = 'October 19th, 2022'
 
 VN_TIMEZONE = pytz.timezone('Asia/Ho_Chi_Minh')
-WEDDING_DATE_DATETIME = datetime(2022, 10, 19, 9, tzinfo=VN_TIMEZONE)
+WEDDING_DATE_DATETIME = datetime(2022, 10, 19, 10, tzinfo=VN_TIMEZONE)
 WEDDING_DATE_DATETIME_UTC = WEDDING_DATE_DATETIME.astimezone(pytz.utc)
 
 # When sending test emails it will use this address

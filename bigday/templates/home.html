@@ -56,9 +56,6 @@
       <h1 class="shadowy">Søren and Thu's Wedding</h1>
       <hr />
       <p class="shadowy only-desktop">More than you ever wanted to know about Søren, Thu, and the event.</p>
-      {% if is_wedding_week %}
-        <h2>It's wedding week!</h2>
-      {% endif %}
       {% comment %}
       <a href="#welcome" class="btn btn-info btn-xl page-scroll">Welcome</a>
       <a href="#event" class="btn btn-primary btn-xl page-scroll">Tuesday</a>
@@ -78,24 +75,11 @@
         </div>
         </br>
         <p>Hello friends and family! Welcome to our wedding website!</p>
-        {% if is_wedding_week %}
-        <p>
-          If you're looking for information about the event, look no further!
-          Please see below for all the details regarding
-          <a href="#event" class="page-scroll">Tuesday night's welcome party</a>
-          and
-          <a href="#wednesday-event" class="page-scroll">Wednesday's event</a>.
-        </p>
-        <p>
-          To get added to the wedding WhatsApp group, first create an account and
-          then send an email to
-          <a href="mailto:{{ support_email }}">{{ support_email }}</a>.
-        </p>
-        <p>Looking forward to seeing everyone soon!</p>
-        {% else %}
         <p>
           This is the go-to stop for all information about the wedding.
-          We'll continue to update this site over time.
+          <s>We'll continue to update this site over time.</s>
+          We won't be updating this site anymore, but you can still find all the
+          information you need below.
         </p>
         <p>
           If you're looking for information about the event, look no further!
@@ -104,13 +88,11 @@
           and
           <a href="#wednesday-evening-event" class="page-scroll">Wednesday evenings's party</a>.
         </p>
-        <!-- <p>
-          To get added to the wedding WhatsApp group, first create an account and
-          then send an email to
-          <a href="mailto:{{ support_email }}">{{ support_email }}</a>.
-        </p> -->
         <p>We can't wait to celebrate the day with everyone!</p>
-        {% endif %}
+        <p>
+          This timer used to count down to the wedding.
+          For fun, we've now changed it to count the amount of time since the wedding took place.
+        </p>
         <div id="our-countdown" class="simply-countdown-losange"></div>
         <p class="pull-right">- {{ couple_name }}</p>
       </div>
@@ -216,7 +198,8 @@ if (typeof simplyCountdown !== 'undefined') {
     day: datetime.day,
     hours: datetime.hour,
     minutes: datetime.minute,
-    enableUtc: true
+    enableUtc: true,
+    countUp: true,
   });
 }
 </script>

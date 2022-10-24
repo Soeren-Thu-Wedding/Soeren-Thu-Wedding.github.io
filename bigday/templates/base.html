@@ -39,8 +39,9 @@
 <script>
     // When deployed on GitHub pages, it will be deployed to
     // http://<username>.github.io/<repo-name>
-    // and the base url will be /<repo-name>
-    // This is a hack to make the links work
+    // and the base url will be /<repo-name> IF the repo name is not
+    // the same as the username.
+    // This is a hack to make the links work in that case
     const static = '/static/';
     const prefixPath = window.location.pathname.slice(0, -1);
     const origin = window.location.origin;
