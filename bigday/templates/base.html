@@ -45,6 +45,30 @@
     <script src="{% static 'bootstrap-3.3.6-dist/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'bigday/js/footer.js' %}"></script>
     <script>
+        // When deployed on GitHub pages, it will be deployed to
+        // http://<username>.github.io/<repo-name>
+        // and the base url will be /<repo-name>
+        // This is a hack to make the links work
+        const static = '/static/';
+        const prefixPath = window.location.pathname.slice(0, -1);
+        const origin = window.location.origin;
+
+        function updatePath(elm, property) {
+            const path = elm[property];
+            if (!path) return;
+            if (path.startsWith(origin)) {
+                elm[property] = origin + prefixPath + path.replace(origin, '');
+            } else if (path.startsWith(static)) {
+                elm[property] = prefixPath + path;
+            }
+        }
+        function updateAllStaticPaths() {
+            const properties = ['content', 'src', 'href'];
+            const allElements = document.getElementsByTagName('*');
+            [...allElements].forEach(elm => {
+                properties.forEach(property => updatePath(elm, property));
+            })
+        }
         $(document).ready(function() {
             setFooterStyle();
             setFooterStyle();  // hack, for some reason this needs to be called twice on load
