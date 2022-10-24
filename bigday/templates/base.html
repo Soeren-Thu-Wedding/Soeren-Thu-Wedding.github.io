@@ -36,63 +36,32 @@
 {% block page_content %}
 {% endblock %}
 {% include "partials/footer.html"  %}
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+{# <script src="{% static 'creative/js/jquery.js' %}"></script> #}
+
+<!-- Bootstrap Core JavaScript -->
+<script src="{% static 'bootstrap-3.3.6-dist/js/bootstrap.min.js' %}"></script>
+<!-- <script src="{% static 'bigday/js/footer.js' %}"></script> -->
 <script>
-    // When deployed on GitHub pages, it will be deployed to
-    // http://<username>.github.io/<repo-name>
-    // and the base url will be /<repo-name> IF the repo name is not
-    // the same as the username.
-    // This is a hack to make the links work in that case
-    const static = '/static/';
-    const prefixPath = window.location.pathname.slice(0, -1);
-    const origin = window.location.origin;
-
-    function updatePath(elm, property) {
-        const path = elm[property];
-        if (!path) return;
-        if (path.startsWith(origin)) {
-            elm[property] = origin + prefixPath + path.replace(origin, '');
-        } else if (path.startsWith(static)) {
-            elm[property] = prefixPath + path;
-        }
+function setFooterStyle() {
+    var docHeight = $(window).height();
+    var footerHeight = $('#footer').outerHeight();
+    var footerTop = $('#footer').position().top + footerHeight;
+    if (footerTop < docHeight) {
+        $('#footer').css('margin-top', (docHeight - footerTop) + 'px');
+    } else {
+        $('#footer').css('margin-top', '');
     }
-    function updateAllStaticPaths() {
-        // No need to run if base url is ''
-        if (prefixPath === '') return;
+    $('#footer').removeClass('invisible');
+}
 
-        const properties = ['content', 'src', 'href'];
-        const allElements = document.getElementsByTagName('*');
-        [...allElements].forEach(elm => {
-            properties.forEach(property => updatePath(elm, property));
-        })
-    }
-    updateAllStaticPaths();
+$(document).ready(function() {
+    setFooterStyle();
+    setFooterStyle();  // hack, for some reason this needs to be called twice on load
+    window.onresize = setFooterStyle;
+});
 </script>
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-{#    <script src="{% static 'creative/js/jquery.js' %}"></script>#}
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="{% static 'bootstrap-3.3.6-dist/js/bootstrap.min.js' %}"></script>
-    <!-- <script src="{% static 'bigday/js/footer.js' %}"></script> -->
-    <script>
-        function setFooterStyle() {
-            var docHeight = $(window).height();
-            var footerHeight = $('#footer').outerHeight();
-            var footerTop = $('#footer').position().top + footerHeight;
-            if (footerTop < docHeight) {
-                $('#footer').css('margin-top', (docHeight - footerTop) + 'px');
-            } else {
-                $('#footer').css('margin-top', '');
-            }
-            $('#footer').removeClass('invisible');
-        }
-
-        $(document).ready(function() {
-            setFooterStyle();
-            setFooterStyle();  // hack, for some reason this needs to be called twice on load
-            window.onresize = setFooterStyle;
-        });
-    </script>
 {% block page_js %}
 {% endblock %}
 </body>

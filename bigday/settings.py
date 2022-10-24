@@ -171,4 +171,4 @@ WEDDING_CC_LIST = ['shmulvad@gmail.com', 'tranthituyetthu95@gmail.com']
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # python manage.py distill-local --force --collectstatic
-DISTILL_DIR = os.path.join(BASE_DIR, 'out')
+DISTILL_DIR = os.path.join(BASE_DIR, 'build')

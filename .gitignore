@@ -12,3 +12,4 @@ guests/static/save-the-date/images/archive/
 .env
 invitations/
 out/
+build/
