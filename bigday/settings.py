@@ -32,8 +32,6 @@ IS_HEROKU = config('IS_HEROKU', default=False, cast=bool)
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
-    '.herokuapp.com',
-    'soeren-and-thus-wedding.herokuapp.com',
     'soeren-thu-wedding.com',
     'www.soeren-thu-wedding.com',
     config('SERVER', default='127.0.0.1')
@@ -42,13 +40,14 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
+    # 'django.contrib.sessions',
+    # 'django.contrib.messages',
     'django.contrib.staticfiles',
-    'guests.apps.GuestsConfig',
+    # 'guests.apps.GuestsConfig',
+    'django_distill',
 ]
 
 MIDDLEWARE = [
@@ -173,7 +172,5 @@ WEDDING_CC_LIST = ['shmulvad@gmail.com', 'tranthituyetthu95@gmail.com']
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-
-if IS_HEROKU:
-    import django_heroku
-    django_heroku.settings(locals())
+# python manage.py distill-local --force --collectstatic
+DISTILL_DIR = os.path.join(BASE_DIR, 'out')

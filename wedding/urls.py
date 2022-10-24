@@ -1,7 +1,8 @@
-from django.conf.urls import url
+# from django.conf.urls import url
+# from django_distill import distill_path
 
-from . import views
+# from . import views
 
-urlpatterns = [
-    url(r'^$', views.home, name='home'),
-]
+# urlpatterns = [
+#     distill_path('', views.home, name='home', distill_file='index.html'),
+# ]
