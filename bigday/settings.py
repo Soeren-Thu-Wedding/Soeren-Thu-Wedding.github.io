@@ -30,11 +30,12 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 IS_HEROKU = config('IS_HEROKU', default=False, cast=bool)
 
 ALLOWED_HOSTS = [
+    '*',
     '127.0.0.1',
     'localhost',
     'soeren-thu-wedding.com',
     'www.soeren-thu-wedding.com',
-    config('SERVER', default='127.0.0.1')
+    config('SERVER', default='127.0.0.1'),
 ]
 
 # Application definition
