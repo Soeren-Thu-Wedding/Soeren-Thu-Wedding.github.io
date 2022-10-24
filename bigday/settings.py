@@ -26,6 +26,7 @@ SECRET_KEY = config('DJANGO_SECRET_KEY', default='S#perS3crEt_1122')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
+GENERATE_STATIC = config('GENERATE_STATIC', default=False, cast=bool)
 
 IS_HEROKU = config('IS_HEROKU', default=False, cast=bool)
 
@@ -92,7 +93,7 @@ CACHES = {
 
 WSGI_APPLICATION = 'bigday.wsgi.application'
 
-if not DEBUG:
+if not (DEBUG or GENERATE_STATIC):
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     SECURE_SSL_REDIRECT = True
 
