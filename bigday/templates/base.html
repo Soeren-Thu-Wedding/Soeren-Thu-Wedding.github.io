@@ -29,7 +29,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    {% comment %} {% include "partials/google-analytics.html" %} {% endcomment %}
     {% block page_head %}
     {% endblock %}
 </head>
@@ -37,38 +36,55 @@
 {% block page_content %}
 {% endblock %}
 {% include "partials/footer.html"  %}
+<script>
+    // When deployed on GitHub pages, it will be deployed to
+    // http://<username>.github.io/<repo-name>
+    // and the base url will be /<repo-name>
+    // This is a hack to make the links work
+    const static = '/static/';
+    const prefixPath = window.location.pathname.slice(0, -1);
+    const origin = window.location.origin;
+
+    function updatePath(elm, property) {
+        const path = elm[property];
+        if (!path) return;
+        if (path.startsWith(origin)) {
+            elm[property] = origin + prefixPath + path.replace(origin, '');
+        } else if (path.startsWith(static)) {
+            elm[property] = prefixPath + path;
+        }
+    }
+    function updateAllStaticPaths() {
+        // No need to run if base url is ''
+        if (prefixPath === '') return;
+
+        const properties = ['content', 'src', 'href'];
+        const allElements = document.getElementsByTagName('*');
+        [...allElements].forEach(elm => {
+            properties.forEach(property => updatePath(elm, property));
+        })
+    }
+</script>
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 {#    <script src="{% static 'creative/js/jquery.js' %}"></script>#}
 
     <!-- Bootstrap Core JavaScript -->
     <script src="{% static 'bootstrap-3.3.6-dist/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'bigday/js/footer.js' %}"></script>
+    <!-- <script src="{% static 'bigday/js/footer.js' %}"></script> -->
     <script>
-        // When deployed on GitHub pages, it will be deployed to
-        // http://<username>.github.io/<repo-name>
-        // and the base url will be /<repo-name>
-        // This is a hack to make the links work
-        const static = '/static/';
-        const prefixPath = window.location.pathname.slice(0, -1);
-        const origin = window.location.origin;
-
-        function updatePath(elm, property) {
-            const path = elm[property];
-            if (!path) return;
-            if (path.startsWith(origin)) {
-                elm[property] = origin + prefixPath + path.replace(origin, '');
-            } else if (path.startsWith(static)) {
-                elm[property] = prefixPath + path;
+        function setFooterStyle() {
+            var docHeight = $(window).height();
+            var footerHeight = $('#footer').outerHeight();
+            var footerTop = $('#footer').position().top + footerHeight;
+            if (footerTop < docHeight) {
+                $('#footer').css('margin-top', (docHeight - footerTop) + 'px');
+            } else {
+                $('#footer').css('margin-top', '');
             }
+            $('#footer').removeClass('invisible');
         }
-        function updateAllStaticPaths() {
-            const properties = ['content', 'src', 'href'];
-            const allElements = document.getElementsByTagName('*');
-            [...allElements].forEach(elm => {
-                properties.forEach(property => updatePath(elm, property));
-            })
-        }
+
         $(document).ready(function() {
             setFooterStyle();
             setFooterStyle();  // hack, for some reason this needs to be called twice on load

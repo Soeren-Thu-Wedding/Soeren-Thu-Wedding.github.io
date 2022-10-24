@@ -209,13 +209,15 @@
 <script src="{% static 'simplyCountdown/simplyCountdown.min.js' %}"></script>
 <script>
 const datetime = JSON.parse(document.getElementById('datetime-data').textContent);
-simplyCountdown('#our-countdown', {
-  year: datetime.year,
-  month: datetime.month,
-  day: datetime.day,
-  hours: datetime.hour,
-  minutes: datetime.minute,
-  enableUtc: true
-});
+if (typeof simplyCountdown !== 'undefined') {
+  simplyCountdown('#our-countdown', {
+    year: datetime.year,
+    month: datetime.month,
+    day: datetime.day,
+    hours: datetime.hour,
+    minutes: datetime.minute,
+    enableUtc: true
+  });
+}
 </script>
 {% endblock %}
