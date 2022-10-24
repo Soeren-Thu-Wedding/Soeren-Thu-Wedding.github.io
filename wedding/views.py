@@ -13,7 +13,6 @@ def home(request):
         'hour': dt.hour,
         'minute': dt.minute
     }
-    is_wedding_week = date.today().isocalendar()[1] == dt.isocalendar()[1]
     return render(request, 'home.html', context={
         # 'save_the_dates': SAVE_THE_DATE_CONTEXT_MAP,
         'support_email': settings.DEFAULT_WEDDING_REPLY_EMAIL,
@@ -22,5 +21,4 @@ def home(request):
         'wedding_location': settings.WEDDING_LOCATION,
         'wedding_date': settings.WEDDING_DATE,
         'wedding_date_datetime': wedding_date_datetime,
-        'is_wedding_week': is_wedding_week
     })
